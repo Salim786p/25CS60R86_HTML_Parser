@@ -1,0 +1,81 @@
+{
+    "type": "ELEMENT",
+    "tagName": "document",
+    "attributes": {},
+    "children": [
+        {
+            "type": "ELEMENT",
+            "tagName": "div",
+            "attributes": {
+                "id": "root",
+                "class": "container"
+            },
+            "children": [
+                {
+                    "type": "ELEMENT",
+                    "tagName": "div",
+                    "attributes": {
+                        "id": "header",
+                        "class": "section"
+                    },
+                    "children": [
+                        {
+                            "type": "ELEMENT",
+                            "tagName": "p",
+                            "attributes": {
+                                "class": "text"
+                            },
+                            "children": [
+                                {
+                                    "type": "TEXT",
+                                    "value": "Welcome",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "ELEMENT",
+                    "tagName": "div",
+                    "attributes": {
+                        "id": "content",
+                        "class": "section"
+                    },
+                    "children": [
+                        {
+                            "type": "ELEMENT",
+                            "tagName": "p",
+                            "attributes": {
+                                "id": "intro",
+                                "align": "center"
+                            },
+                            "children": [
+                                {
+                                    "type": "TEXT",
+                                    "value": "Hello ",
+                                    "children": []
+                                },
+                                {
+                                    "type": "ELEMENT",
+                                    "tagName": "a",
+                                    "attributes": {
+                                        "href": "https://example.com",
+                                        "target": "_blank"
+                                    },
+                                    "children": [
+                                        {
+                                            "type": "TEXT",
+                                            "value": "world",
+                                            "children": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
