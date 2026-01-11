@@ -1,0 +1,221 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> document
+Rule 1     document -> content
+Rule 2     element -> LT ID attributes GT content LTSLASH ID GT
+Rule 3     element -> TEXT
+Rule 4     attributes -> attributes attribute
+Rule 5     attributes -> empty
+Rule 6     attribute -> ID EQUALS STRING
+Rule 7     content -> content element
+Rule 8     content -> empty
+Rule 9     empty -> <empty>
+
+Terminals, with rules where they appear
+
+EQUALS               : 6
+GT                   : 2 2
+ID                   : 2 2 6
+LT                   : 2
+LTSLASH              : 2
+STRING               : 6
+TEXT                 : 3
+error                : 
+
+Nonterminals, with rules where they appear
+
+attribute            : 4
+attributes           : 2 4
+content              : 1 2 7
+document             : 0
+element              : 7
+empty                : 5 8
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . document
+    (1) document -> . content
+    (7) content -> . content element
+    (8) content -> . empty
+    (9) empty -> .
+
+    LT              reduce using rule 9 (empty -> .)
+    TEXT            reduce using rule 9 (empty -> .)
+    $end            reduce using rule 9 (empty -> .)
+
+    document                       shift and go to state 1
+    content                        shift and go to state 2
+    empty                          shift and go to state 3
+
+state 1
+
+    (0) S' -> document .
+
+
+
+state 2
+
+    (1) document -> content .
+    (7) content -> content . element
+    (2) element -> . LT ID attributes GT content LTSLASH ID GT
+    (3) element -> . TEXT
+
+    $end            reduce using rule 1 (document -> content .)
+    LT              shift and go to state 5
+    TEXT            shift and go to state 6
+
+    element                        shift and go to state 4
+
+state 3
+
+    (8) content -> empty .
+
+    LT              reduce using rule 8 (content -> empty .)
+    TEXT            reduce using rule 8 (content -> empty .)
+    $end            reduce using rule 8 (content -> empty .)
+    LTSLASH         reduce using rule 8 (content -> empty .)
+
+
+state 4
+
+    (7) content -> content element .
+
+    LT              reduce using rule 7 (content -> content element .)
+    TEXT            reduce using rule 7 (content -> content element .)
+    $end            reduce using rule 7 (content -> content element .)
+    LTSLASH         reduce using rule 7 (content -> content element .)
+
+
+state 5
+
+    (2) element -> LT . ID attributes GT content LTSLASH ID GT
+
+    ID              shift and go to state 7
+
+
+state 6
+
+    (3) element -> TEXT .
+
+    LT              reduce using rule 3 (element -> TEXT .)
+    TEXT            reduce using rule 3 (element -> TEXT .)
+    $end            reduce using rule 3 (element -> TEXT .)
+    LTSLASH         reduce using rule 3 (element -> TEXT .)
+
+
+state 7
+
+    (2) element -> LT ID . attributes GT content LTSLASH ID GT
+    (4) attributes -> . attributes attribute
+    (5) attributes -> . empty
+    (9) empty -> .
+
+    GT              reduce using rule 9 (empty -> .)
+    ID              reduce using rule 9 (empty -> .)
+
+    attributes                     shift and go to state 8
+    empty                          shift and go to state 9
+
+state 8
+
+    (2) element -> LT ID attributes . GT content LTSLASH ID GT
+    (4) attributes -> attributes . attribute
+    (6) attribute -> . ID EQUALS STRING
+
+    GT              shift and go to state 11
+    ID              shift and go to state 10
+
+    attribute                      shift and go to state 12
+
+state 9
+
+    (5) attributes -> empty .
+
+    GT              reduce using rule 5 (attributes -> empty .)
+    ID              reduce using rule 5 (attributes -> empty .)
+
+
+state 10
+
+    (6) attribute -> ID . EQUALS STRING
+
+    EQUALS          shift and go to state 13
+
+
+state 11
+
+    (2) element -> LT ID attributes GT . content LTSLASH ID GT
+    (7) content -> . content element
+    (8) content -> . empty
+    (9) empty -> .
+
+    LTSLASH         reduce using rule 9 (empty -> .)
+    LT              reduce using rule 9 (empty -> .)
+    TEXT            reduce using rule 9 (empty -> .)
+
+    content                        shift and go to state 14
+    empty                          shift and go to state 3
+
+state 12
+
+    (4) attributes -> attributes attribute .
+
+    GT              reduce using rule 4 (attributes -> attributes attribute .)
+    ID              reduce using rule 4 (attributes -> attributes attribute .)
+
+
+state 13
+
+    (6) attribute -> ID EQUALS . STRING
+
+    STRING          shift and go to state 15
+
+
+state 14
+
+    (2) element -> LT ID attributes GT content . LTSLASH ID GT
+    (7) content -> content . element
+    (2) element -> . LT ID attributes GT content LTSLASH ID GT
+    (3) element -> . TEXT
+
+    LTSLASH         shift and go to state 16
+    LT              shift and go to state 5
+    TEXT            shift and go to state 6
+
+    element                        shift and go to state 4
+
+state 15
+
+    (6) attribute -> ID EQUALS STRING .
+
+    GT              reduce using rule 6 (attribute -> ID EQUALS STRING .)
+    ID              reduce using rule 6 (attribute -> ID EQUALS STRING .)
+
+
+state 16
+
+    (2) element -> LT ID attributes GT content LTSLASH . ID GT
+
+    ID              shift and go to state 17
+
+
+state 17
+
+    (2) element -> LT ID attributes GT content LTSLASH ID . GT
+
+    GT              shift and go to state 18
+
+
+state 18
+
+    (2) element -> LT ID attributes GT content LTSLASH ID GT .
+
+    LT              reduce using rule 2 (element -> LT ID attributes GT content LTSLASH ID GT .)
+    TEXT            reduce using rule 2 (element -> LT ID attributes GT content LTSLASH ID GT .)
+    $end            reduce using rule 2 (element -> LT ID attributes GT content LTSLASH ID GT .)
+    LTSLASH         reduce using rule 2 (element -> LT ID attributes GT content LTSLASH ID GT .)
+

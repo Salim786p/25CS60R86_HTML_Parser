@@ -167,7 +167,7 @@ def p_error(p):
     else:
         print("Syntax Error: Unexpected End of File") # [cite: 152]
 
-parser = yacc.yacc()
+parser = yacc.yacc(debug = True)
 
 # -----------------------------------------------------------------------------
 # EXECUTION
