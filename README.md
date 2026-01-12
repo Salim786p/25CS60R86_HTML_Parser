@@ -1,19 +1,17 @@
 # Mini HTML Parser and DOM Builder using PLY
 
 ## Course
-CS69202 – Design Lab
+ - Design Lab (CS69202)
+ - Roll Number - 25CS60R86
+ - Name - Salim Akhter Ansari
 
-## Topic
-Mini HTML Parser and DOM Builder using PLY (Python Lex-Yacc)
-
----
 
 ## 1. Problem Overview
 
-This project implements a mini HTML parser for a restricted subset of HTML as specified in the Design Lab assignment.  
-The parser performs lexical analysis, syntax analysis, semantic validation, constructs a DOM-like hierarchical tree, and serializes the result into JSON format.
+This Assignment implements a **mini HTML parser** for a restricted subset of HTML.  
+The parser performs **lexical analysis**, **syntax analysis**, **semantic validation**, constructs a **DOM-like hierarchical tree**, and serializes the result into **JSON format**.
 
-The objective is to apply compiler design concepts such as tokenization, context-free grammar parsing, parse tree construction, and semantic checking using PLY.
+The implementation strictly follows compiler design principles and uses **PLY only**, without relying on any external HTML/XML parsing libraries.
 
 ---
 
@@ -31,10 +29,10 @@ The objective is to apply compiler design concepts such as tokenization, context
 
 - Attributes are optional  
 - Attributes appear only in opening tags  
-- Attribute values must be enclosed in double quotes  
+- Attribute values must be enclosed in **double quotes**  
 - Attribute order is not significant  
 - Duplicate attributes on the same tag are not allowed  
-- Attributes not listed for a tag raise a semantic error  
+- Attributes not listed for a tag raise a **semantic error**
 
 ---
 
@@ -62,11 +60,16 @@ JSON Serialization
 
 ### 4.1 Design Rationale
 
-HTML tokenization is context-sensitive:
-- Outside HTML tags, text is treated as plain content
-- Inside `< >`, tag names, attribute names, and values must be tokenized separately
+HTML tokenization is **context-sensitive**:
 
-To handle this correctly, the lexer uses exclusive states.
+- Outside tags → text content
+- Inside `< >` → tag names, attribute names, and attribute values
+
+To correctly distinguish these contexts, the lexer uses **exclusive lexer states**.
+
+---
+
+### 4.2 Lexer States
 
 ```python
 states = (
@@ -74,12 +77,12 @@ states = (
 )
 ```
 
-### 4.2 Lexer States
-
 | State | Purpose |
-|-------|---------|
+|------|---------|
 | `INITIAL` | Tokenizes text outside HTML tags |
 | `tag` | Tokenizes tag names and attributes inside `< >` |
+
+---
 
 ### 4.3 Tokens
 
@@ -91,10 +94,11 @@ tokens = (
 )
 ```
 
+---
+
 ### 4.4 Token Definitions
 
 #### Entering Tag State
-
 ```python
 def t_LT(t):
     r'<'
@@ -108,7 +112,6 @@ def t_LTSLASH(t):
 ```
 
 #### Exiting Tag State
-
 ```python
 def t_tag_GT(t):
     r'>'
@@ -117,7 +120,6 @@ def t_tag_GT(t):
 ```
 
 #### Tokens Inside Tags
-
 ```python
 def t_tag_ID(t):
     r'[a-zA-Z][a-zA-Z0-9]*'
@@ -134,12 +136,13 @@ def t_tag_STRING(t):
 ```
 
 #### Text Outside Tags
-
 ```python
 def t_TEXT(t):
-    r'[^<>]+'
+    r'[^<>\n]+'
     return t
 ```
+
+---
 
 ### 4.5 Lexer Error Handling
 
@@ -155,16 +158,24 @@ def t_tag_error(t):
 
 ---
 
-## 5. Syntax Analysis
+## 5. Syntax Analysis (Grammar)
 
-### 5.1 Grammar Rules
+The grammar below is extracted **directly from the implementation** and is **LALR(1)-compatible**, as verified using `parser.out`.
+
+### 5.1 Grammar Rules (Exact)
 
 ```ebnf
 document   → content
-content    → content element | ε
+
+content    → content element
+           | ε
+
 element    → '<' ID attributes '>' content '</' ID '>'
-element    → TEXT
-attributes → attributes attribute | ε
+           | TEXT
+
+attributes → attributes attribute
+           | ε
+
 attribute  → ID '=' STRING
 ```
 
@@ -172,9 +183,9 @@ attribute  → ID '=' STRING
 
 ## 6. Semantic Validation
 
-Semantic checks performed during parsing include:
+Semantic checks are embedded inside parser actions:
 
-- Matching of opening and closing tags
+- Matching of opening and closing tag names
 - Validation of supported tags
 - Validation of supported attributes per tag
 - Detection of duplicate attributes
@@ -190,18 +201,18 @@ Errors are reported with line numbers wherever possible.
 Each node in the DOM tree is represented as a Python dictionary.
 
 #### Element Node
-
 ```json
 {
   "type": "ELEMENT",
   "tagName": "div",
-  "attributes": { "id": "root" },
+  "attributes": {
+    "id": "root"
+  },
   "children": []
 }
 ```
 
 #### Text Node
-
 ```json
 {
   "type": "TEXT",
@@ -214,7 +225,7 @@ Each node in the DOM tree is represented as a Python dictionary.
 
 ## 8. Output Generation
 
-After successful parsing and validation, the DOM tree is serialized into JSON format using Python’s `json` module.
+After successful parsing and semantic validation, the DOM tree is serialized into JSON format using Python’s `json` module.
 
 ```python
 json.dump(result, f, indent=4)
@@ -228,14 +239,19 @@ The output is written to `output.json`.
 
 | File | Description |
 |------|------------|
-| `parser.py` | Lexer and parser implementation |
+| `25CS60R86.py` | Lexer and parser implementation |
 | `input.html` | Sample HTML input |
 | `output.json` | Generated DOM tree |
 | `README.md` | Project documentation |
 
 ---
 
-## 10. Conclusion
+## 10. Notes on Grammar Correctness
 
-This project demonstrates the application of compiler design principles to parse a restricted subset of HTML using PLY.  
-The implementation adheres strictly to the Design Lab constraints and produces a validated DOM structure serialized in JSON format.
+- The grammar avoids ambiguous productions such as `A → A A`
+- Left recursion in `content → content element` is **safe in LALR(1)** parsing
+- Grammar correctness is validated via the generated `parser.out`
+
+---
+
+12 JAN 2026
