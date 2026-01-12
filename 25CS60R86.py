@@ -175,13 +175,13 @@ parser = yacc.yacc(debug = True)
 
 def main():
     try:
-        with open("PLY_Tutorial_Examples/input.html", "r") as f:
+        with open("input.html", "r") as f:
             data = f.read()
         
         result = parser.parse(data)
         
         if result:
-            with open("PLY_Tutorial_Examples/output.json", "w") as f:
+            with open("output.json", "w") as f:
                 json.dump(result, f, indent=4) # [cite: 46-47]
             print("Successfully parsed. Output written to output.json")
     except FileNotFoundError:
