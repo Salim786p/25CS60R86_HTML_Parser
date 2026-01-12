@@ -12,6 +12,11 @@
             },
             "children": [
                 {
+                    "type": "TEXT",
+                    "value": "    ",
+                    "children": []
+                },
+                {
                     "type": "ELEMENT",
                     "tagName": "div",
                     "attributes": {
@@ -19,6 +24,11 @@
                         "class": "section"
                     },
                     "children": [
+                        {
+                            "type": "TEXT",
+                            "value": "        ",
+                            "children": []
+                        },
                         {
                             "type": "ELEMENT",
                             "tagName": "p",
@@ -32,8 +42,18 @@
                                     "children": []
                                 }
                             ]
+                        },
+                        {
+                            "type": "TEXT",
+                            "value": "    ",
+                            "children": []
                         }
                     ]
+                },
+                {
+                    "type": "TEXT",
+                    "value": "    ",
+                    "children": []
                 },
                 {
                     "type": "ELEMENT",
@@ -44,6 +64,11 @@
                     },
                     "children": [
                         {
+                            "type": "TEXT",
+                            "value": "        ",
+                            "children": []
+                        },
+                        {
                             "type": "ELEMENT",
                             "tagName": "p",
                             "attributes": {
@@ -53,7 +78,7 @@
                             "children": [
                                 {
                                     "type": "TEXT",
-                                    "value": "Hello ",
+                                    "value": "            Hello ",
                                     "children": []
                                 },
                                 {
@@ -70,8 +95,18 @@
                                             "children": []
                                         }
                                     ]
+                                },
+                                {
+                                    "type": "TEXT",
+                                    "value": "        ",
+                                    "children": []
                                 }
                             ]
+                        },
+                        {
+                            "type": "TEXT",
+                            "value": "    ",
+                            "children": []
                         }
                     ]
                 }
